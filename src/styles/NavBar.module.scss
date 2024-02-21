@@ -1,0 +1,51 @@
+@use "./colors.module";
+
+.navBar {
+    margin: 0 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid colors.$Grayish-blue;
+    .navContainer {
+        display: flex;
+        align-items: center;
+        img {
+            width: 137px;
+            height: 20px;
+        }
+        .navList {
+            margin-left: 3.5rem;
+            display: flex;
+            align-items: center;
+            height: 112px;
+            .listItem {
+                margin-right: 1.5rem;
+                display: flex;
+                align-items: center;
+                height: 112px;
+                color: colors.$Dark-grayish-blue;
+                font-weight: 500;
+                &:hover {
+                    cursor: pointer;
+                    border-bottom: 5px solid colors.$Orange;
+                    color: colors.$Very-dark-blue;
+                }
+            }
+        }
+        
+    }
+
+    .cartUserContainer {
+        display: flex;
+        align-items: center;
+
+        .cart {
+            margin-right: 1.5rem;
+        }
+
+        .userImage {
+            width: 50px;
+            height: 50px;
+        }
+    }
+}

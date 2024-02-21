@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap');
+
 * {
   box-sizing: border-box;
   min-width: 0;
@@ -8,6 +10,7 @@
 
 body {
   min-height: 100dvh;
+  font-family: "Kumbh Sans";
 }
 
 h1, h2, h3, h4 {
