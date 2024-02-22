@@ -1,4 +1,4 @@
-import NavBar from "./components/NavBar";
+import NavBar from "c:/Users/Alejandro/Desktop/Proyectos/frontEndMentor/ecommerceProductPageMain/ecommerceProductPageMain/ecommerce/src/components/NavBar";
 
 function App() {
   return (
