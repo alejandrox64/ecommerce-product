@@ -1,3 +1,4 @@
+import ProductComponent from "./components/ProductComponent";
 import NavBar from "c:/Users/Alejandro/Desktop/Proyectos/frontEndMentor/ecommerceProductPageMain/ecommerceProductPageMain/ecommerce/src/components/NavBar";
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
     <>
       <div>
         <NavBar />
+        <ProductComponent />
       </div>
     </>
   );
