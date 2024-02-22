@@ -41,11 +41,38 @@
 
         .cart {
             margin-right: 1.5rem;
+            position: relative;
+            svg {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            &:hover #path {
+                fill: colors.$Very-dark-blue;
+            }
+            .numberOfProducts {
+                position: absolute;
+                background-color: colors.$Orange;
+                top: -8px;
+                right: -7px;
+                width: 20px;
+                height: 13px;
+                border-radius: 10px;
+                text-align: center;
+                font-size: .7rem;
+                color: white;
+            }
         }
 
         .userImage {
             width: 50px;
             height: 50px;
+            border: 3px solid rgba(0, 0, 0, .0);
+            border-radius: 50%;
+            &:hover {
+                cursor: pointer;
+                border-color: colors.$Orange;
+            }
         }
     }
 }
