@@ -32,6 +32,26 @@ const NavBar = () => {
             </svg>
 
             <span></span>
+            <div className={styles.cartContainer}>
+              <h3>Cart</h3>
+              <hr />
+
+              {/* product deberia ser un elemento devuelto por un map en base a un estado */}
+              <span className={styles.product}>
+                <img className={styles.imageOfProduct} />
+                <span className={styles.infoOfProduct}>
+                  <p className={styles.nameOfProduct}>
+                    Fall Limited Edition Sneakers
+                  </p>
+                  <span className={styles.price}>
+                    $125
+                    <p className={styles.totalPrice}></p>
+                  </span>
+                </span>
+                <img className={styles.delete} />
+              </span>
+              <button>Checkout</button>
+            </div>
           </span>
           <img
             src="../../public/images/image-avatar.png"
