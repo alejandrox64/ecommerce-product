@@ -1,0 +1,94 @@
+@use "./colors.module";
+
+body {
+  background-color: rgba(134, 130, 130, 0.7);
+}
+.imagesProduct {
+  display: flex;
+  flex-direction: column;
+  width: 444px;
+  height: 567px;
+  margin: 5rem auto;
+
+  .buttonOfClosed {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    align-self: end;
+    margin: 0 0 15px 0;
+    svg {
+      transform: scale(1.3);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &:hover #path {
+      fill: colors.$Orange;
+    }
+  }
+
+  .activeImage {
+    position: relative;
+    .prevButton {
+      position: absolute;
+      left: -30px;
+      top: 40%;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: hidden;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 5px 0 0;
+      &:hover {
+        cursor: pointer;
+      }
+      &:hover #path {
+        stroke: colors.$Orange;
+      }
+    }
+    .nextButton {
+      position: absolute;
+      right: -30px;
+      top: 40%;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: hidden;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0 0 5px;
+      &:hover {
+        cursor: pointer;
+      }
+      &:hover #path {
+        stroke: colors.$Orange;
+      }
+    }
+
+    .shownImage {
+      border-radius: 4%;
+      width: 444px;
+      height: 445px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .previewImage {
+    display: flex;
+    justify-content: space-between;
+    img {
+      border-radius: 10%;
+      width: 88px;
+      height: 88px;
+      &:hover {
+        cursor: pointer;
+        border: 2px solid colors.$Orange;
+        opacity: 0.5;
+      }
+    }
+  }
+}
