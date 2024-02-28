@@ -1,12 +1,30 @@
 import styles from "../styles/ProductComponent.module.scss";
 import Carrousel from "./Carrousel";
+import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectImage, openCarrousel } from "../state/slices/carrouselSlice";
 
 const ProductComponent = () => {
   const carrousel = useSelector((state) => state.carrousel.carrousel);
   const indexImage = useSelector((state) => state.carrousel.indexImage);
+  const imageSelected = useSelector((state) => state.carrousel.imageSelected);
   const dispatch = useDispatch();
+
+  const firstImageContainerRef = useRef(null);
+  const firstImageRef = useRef(null);
+  const secondImageContainerRef = useRef(null);
+  const secondImageRef = useRef(null);
+  const thirdImageContainerRef = useRef(null);
+  const thirdImageRef = useRef(null);
+  const fourthImageContainerRef = useRef(null);
+  const fourthImageRef = useRef(null);
+
+  const images = [
+    [firstImageContainerRef, firstImageRef],
+    [secondImageContainerRef, secondImageRef],
+    [thirdImageContainerRef, thirdImageRef],
+    [fourthImageContainerRef, fourthImageRef],
+  ];
 
   const handleMainImageClick = () => {
     dispatch(openCarrousel());
@@ -14,6 +32,17 @@ const ProductComponent = () => {
   const handleSelectImage = (e) => {
     const index = e.target.id;
     dispatch(selectImage(index));
+    if (imageSelected !== null) {
+      for (let image of images) {
+        image[0].current.style.border = "";
+        image[0].current.style.borderRadius = "";
+        image[1].current.style.opacity = "";
+      }
+    }
+    images[index - 1][0].current.style.border =
+      "0.2rem solid hsl(26, 100%, 55%)";
+    images[index - 1][0].current.style.borderRadius = "10%";
+    images[index - 1][1].current.style.opacity = "0.5";
   };
 
   return (
@@ -24,43 +53,55 @@ const ProductComponent = () => {
           <img
             onClick={handleMainImageClick}
             src={`../../public/images/image-product-${indexImage}.jpg`}
-            className={styles.shownImage}
+            className={`${styles.shownImage}`}
             alt="shoes"
           />
 
           <span className={styles.previewImage}>
-            <img
-              onClick={(e) => {
-                handleSelectImage(e);
-              }}
-              id={1}
-              src="../../public/images/image-product-1.jpg"
-              alt="shoes1"
-            />
-            <img
-              onClick={(e) => {
-                handleSelectImage(e);
-              }}
-              id={2}
-              src="../../public/images/image-product-2.jpg"
-              alt="shoes2"
-            />
-            <img
-              onClick={(e) => {
-                handleSelectImage(e);
-              }}
-              id={3}
-              src="../../public/images/image-product-3.jpg"
-              alt="shoes3"
-            />
-            <img
-              onClick={(e) => {
-                handleSelectImage(e);
-              }}
-              id={4}
-              src="../../public/images/image-product-4.jpg"
-              alt="shoes4"
-            />
+            <span ref={firstImageContainerRef} className={styles.image}>
+              <img
+                ref={firstImageRef}
+                onClick={(e) => {
+                  handleSelectImage(e);
+                }}
+                id={1}
+                src="../../public/images/image-product-1.jpg"
+                alt="shoes1"
+              />
+            </span>
+            <span ref={secondImageContainerRef} className={styles.image}>
+              <img
+                ref={secondImageRef}
+                onClick={(e) => {
+                  handleSelectImage(e);
+                }}
+                id={2}
+                src="../../public/images/image-product-2.jpg"
+                alt="shoes2"
+              />
+            </span>
+            <span ref={thirdImageContainerRef} className={styles.image}>
+              <img
+                ref={thirdImageRef}
+                onClick={(e) => {
+                  handleSelectImage(e);
+                }}
+                id={3}
+                src="../../public/images/image-product-3.jpg"
+                alt="shoes3"
+              />
+            </span>
+            <span ref={fourthImageContainerRef} className={styles.image}>
+              <img
+                ref={fourthImageRef}
+                onClick={(e) => {
+                  handleSelectImage(e);
+                }}
+                id={4}
+                src="../../public/images/image-product-4.jpg"
+                alt="shoes4"
+              />
+            </span>
           </span>
         </div>
         <div className={styles.productDescriptionContainer}>
