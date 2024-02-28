@@ -4,7 +4,7 @@ main {
   display: flex;
   padding: 0 50px;
   align-items: center;
-
+  z-index: 1;
   .imagesProduct {
     display: flex;
     flex-direction: column;
@@ -16,11 +16,15 @@ main {
       width: 444px;
       height: 445px;
       margin-bottom: 30px;
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .previewImage {
       display: flex;
       justify-content: space-between;
+
       img {
         border-radius: 10%;
         width: 88px;
