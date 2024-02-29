@@ -2,12 +2,15 @@ import styles from "../styles/ProductComponent.module.scss";
 import Carrousel from "./Carrousel";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectImage, openCarrousel } from "../state/slices/carrouselSlice";
+import { selectImage, openCarrousel } from "../state/slices/imageProductSlice";
+import { initializingImage } from "../state/slices/carrouselSlice";
 
 const ProductComponent = () => {
-  const carrousel = useSelector((state) => state.carrousel.carrousel);
-  const indexImage = useSelector((state) => state.carrousel.indexImage);
-  const imageSelected = useSelector((state) => state.carrousel.imageSelected);
+  const carrousel = useSelector((state) => state.imageProduct.carrousel);
+  const indexImage = useSelector((state) => state.imageProduct.indexImage);
+  const imageSelected = useSelector(
+    (state) => state.imageProduct.imageSelected
+  );
   const dispatch = useDispatch();
 
   const firstImageContainerRef = useRef(null);
@@ -19,6 +22,7 @@ const ProductComponent = () => {
   const fourthImageContainerRef = useRef(null);
   const fourthImageRef = useRef(null);
 
+  // cada sub array contiene primero la referencia del contenedor (0) y segundo la referencia a la imagen(1)
   const images = [
     [firstImageContainerRef, firstImageRef],
     [secondImageContainerRef, secondImageRef],
@@ -26,8 +30,9 @@ const ProductComponent = () => {
     [fourthImageContainerRef, fourthImageRef],
   ];
 
-  const handleMainImageClick = () => {
+  const handleMainImageClick = (e) => {
     dispatch(openCarrousel());
+    dispatch(initializingImage(e.target.id));
   };
   const handleSelectImage = (e) => {
     const index = e.target.id;
@@ -39,6 +44,7 @@ const ProductComponent = () => {
         image[1].current.style.opacity = "";
       }
     }
+    // images = array de referencias [[contenedor, imagen], ...]
     images[index - 1][0].current.style.border =
       "0.2rem solid hsl(26, 100%, 55%)";
     images[index - 1][0].current.style.borderRadius = "10%";
@@ -51,8 +57,11 @@ const ProductComponent = () => {
       <main>
         <div className={styles.imagesProduct}>
           <img
-            onClick={handleMainImageClick}
+            onClick={(e) => {
+              handleMainImageClick(e);
+            }}
             src={`../../public/images/image-product-${indexImage}.jpg`}
+            id={indexImage}
             className={`${styles.shownImage}`}
             alt="shoes"
           />
