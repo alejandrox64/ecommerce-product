@@ -1,17 +1,20 @@
-import styles from "../styles/ProductComponent.module.scss";
-import Carrousel from "./Carrousel";
-import { useRef } from "react";
+import React from "react";
+import styles from "../styles/Carrousel.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { selectImage, openCarrousel } from "../state/slices/imageProductSlice";
-import { initializingImage } from "../state/slices/carrouselSlice";
+import { closedCarrousel } from "../state/slices/imageProductSlice";
+import {
+  prevImage,
+  nextImage,
+  imageSelected,
+} from "../state/slices/carrouselSlice";
+import { useRef } from "react";
 
-const ProductComponent = () => {
-  const carrousel = useSelector((state) => state.imageProduct.carrousel);
-  const indexImage = useSelector((state) => state.imageProduct.indexImage);
-  const imageSelected = useSelector(
-    (state) => state.imageProduct.imageSelected
-  );
+const Carrousel = () => {
   const dispatch = useDispatch();
+
+  const indexCarrouselImage = useSelector(
+    (state) => state.carrousel.indexCarrouselImage
+  );
 
   const firstImageContainerRef = useRef(null);
   const firstImageRef = useRef(null);
@@ -30,14 +33,10 @@ const ProductComponent = () => {
     [fourthImageContainerRef, fourthImageRef],
   ];
 
-  const handleMainImageClick = (e) => {
-    dispatch(openCarrousel());
-    dispatch(initializingImage(e.target.id));
-  };
   const handleSelectImage = (e) => {
     const index = e.target.id;
-    dispatch(selectImage(index));
-    if (imageSelected !== null) {
+    dispatch(imageSelected(index));
+    if (indexCarrouselImage !== null) {
       for (let image of images) {
         image[0].current.style.border = "";
         image[0].current.style.borderRadius = "";
@@ -51,20 +50,68 @@ const ProductComponent = () => {
     images[index - 1][1].current.style.opacity = "0.5";
   };
 
+  const handleClosedCarrousel = () => {
+    dispatch(closedCarrousel());
+  };
+
   return (
     <>
-      {carrousel && <Carrousel />}
-      <main>
+      <div className={styles.modal}>
         <div className={styles.imagesProduct}>
-          <img
-            onClick={(e) => {
-              handleMainImageClick(e);
-            }}
-            src={`../../public/images/image-product-${indexImage}.jpg`}
-            id={indexImage}
-            className={`${styles.shownImage}`}
-            alt="shoes"
-          />
+          <div className={styles.activeImage}>
+            <button
+              onClick={handleClosedCarrousel}
+              className={styles.buttonOfClosed}
+            >
+              <svg width="14" height="15" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  id={styles.path}
+                  d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z"
+                  fill="#ffffff"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </button>
+            <img
+              src={`../../public/images/image-product-${indexCarrouselImage}.jpg`}
+              className={styles.shownImage}
+              alt="shoes"
+            />
+            <button className={styles.prevButton}>
+              <svg
+                className={styles.iconButton}
+                width="12"
+                height="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  id={styles.path}
+                  d="M11 1 3 9l8 8"
+                  stroke="#1D2026"
+                  strokeWidth="3"
+                  fill="none"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </button>
+            <button className={styles.nextButton}>
+              <svg
+                className={styles.iconButton}
+                width="13"
+                height="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  id={styles.path}
+                  d="m2 1 8 8-8 8"
+                  stroke="#1D2026"
+                  strokeWidth="3"
+                  fill="none"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
 
           <span className={styles.previewImage}>
             <span ref={firstImageContainerRef} className={styles.image}>
@@ -113,38 +160,9 @@ const ProductComponent = () => {
             </span>
           </span>
         </div>
-        <div className={styles.productDescriptionContainer}>
-          <span className={styles.companyName}>SNEAKER COMPANY</span>
-          <h1 className={styles.productTitle}>Fall Limited Edition Sneakers</h1>
-          <p className={styles.productDescription}>
-            These low-profile sneakers are your perfect casual wear companion.
-            Featuring a durable rubber outer sole, they’ll withstand everything
-            the weather can offer.
-          </p>
-          <div className={styles.priceDiscount}>
-            <h2 className={styles.price}>$125.00</h2>
-            <span className={styles.discount}>50%</span>
-          </div>
-          <span className={styles.previousPrice}>$250.00</span>
-          <div className={styles.buyButtons}>
-            <div className={styles.buttonsContainer}>
-              <button className={styles.decrementToProduct}>
-                <img alt="minus" src="../../public/images/icon-minus.svg" />
-              </button>
-              <span className={styles.totalProducts}>0</span>
-              <button className={styles.incrementToProduct}>
-                <img alt="plus" src="../../public/images/icon-plus.svg" />
-              </button>
-            </div>
-            <button className={styles.addToCart}>
-              <img alt="cart" src="../../public/cart.svg" />
-              Add to cart
-            </button>
-          </div>
-        </div>
-      </main>
+      </div>
     </>
   );
 };
 
-export default ProductComponent;
+export default Carrousel;
