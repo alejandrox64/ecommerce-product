@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  indexImage: 1,
-  carrousel: false,
-  shownImage: "",
+  indexCarrouselImage: undefined,
 };
 
 export const carrouselSlice = createSlice({
@@ -11,29 +9,25 @@ export const carrouselSlice = createSlice({
   initialState,
   reducers: {
     nextImage: (state) => {
-      state.indexImage <= 5 ? (state.indexImage += 1) : (state.indexImage = 1);
+      state.indexCarrouselImage <= 5
+        ? (state.indexCarrouselImage += 1)
+        : (state.indexCarrouselImage = 1);
     },
     prevImage: (state) => {
-      state.indexImage >= 0 ? (state.indexImage -= 1) : (state.indexImage = 4);
+      state.indexCarrouselImage >= 0
+        ? (state.indexCarrouselImage -= 1)
+        : (state.indexCarrouselImage = 4);
     },
-    selectImage: (state, actions) => {
-      state.indexImage = actions.payload;
+    imageSelected: (state, actions) => {
+      state.indexCarrouselImage = actions.payload;
     },
-    openCarrousel: (state) => {
-      state.carrousel = true;
-    },
-    closedCarrousel: (state) => {
-      state.carrousel = false;
+    initializingImage: (state, actions) => {
+      state.indexCarrouselImage = actions.payload;
     },
   },
 });
 
-export const {
-  nextImage,
-  prevImage,
-  selectImage,
-  openCarrousel,
-  closedCarrousel,
-} = carrouselSlice.actions;
+export const { nextImage, prevImage, imageSelected, initializingImage } =
+  carrouselSlice.actions;
 
 export default carrouselSlice.reducer;
