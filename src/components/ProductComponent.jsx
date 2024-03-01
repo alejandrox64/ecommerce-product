@@ -32,11 +32,11 @@ const ProductComponent = () => {
 
   const handleMainImageClick = (e) => {
     dispatch(openCarrousel());
-    dispatch(initializingImage(e.target.id));
+    dispatch(initializingImage(parseInt(e.target.id, 10)));
   };
   const handleSelectImage = (e) => {
     const index = e.target.id;
-    dispatch(selectImage(index));
+    dispatch(selectImage(parseInt(index, 10)));
     if (imageSelected !== null) {
       for (let image of images) {
         image[0].current.style.border = "";

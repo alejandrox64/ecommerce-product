@@ -1,18 +1,16 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styles from "../styles/Carrousel.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { closedCarrousel } from "../state/slices/imageProductSlice";
 import {
-  prevImage,
-  nextImage,
-  imageSelected,
-} from "../state/slices/carrouselSlice";
-import { useRef } from "react";
+  closedCarrousel,
+  selectImage,
+} from "../state/slices/imageProductSlice";
+import { imageSelected } from "../state/slices/carrouselSlice";
 
 const Carrousel = () => {
   const dispatch = useDispatch();
 
-  const indexCarrouselImage = useSelector(
+  let indexCarrouselImage = useSelector(
     (state) => state.carrousel.indexCarrouselImage
   );
 
@@ -25,7 +23,6 @@ const Carrousel = () => {
   const fourthImageContainerRef = useRef(null);
   const fourthImageRef = useRef(null);
 
-  // cada sub array contiene primero la referencia del contenedor (0) y segundo la referencia a la imagen(1)
   const images = [
     [firstImageContainerRef, firstImageRef],
     [secondImageContainerRef, secondImageRef],
@@ -33,9 +30,7 @@ const Carrousel = () => {
     [fourthImageContainerRef, fourthImageRef],
   ];
 
-  const handleSelectImage = (e) => {
-    const index = e.target.id;
-    dispatch(imageSelected(index));
+  useEffect(() => {
     if (indexCarrouselImage !== null) {
       for (let image of images) {
         image[0].current.style.border = "";
@@ -44,10 +39,28 @@ const Carrousel = () => {
       }
     }
     // images = array de referencias [[contenedor, imagen], ...]
-    images[index - 1][0].current.style.border =
+    images[indexCarrouselImage - 1][0].current.style.border =
       "0.2rem solid hsl(26, 100%, 55%)";
-    images[index - 1][0].current.style.borderRadius = "10%";
-    images[index - 1][1].current.style.opacity = "0.5";
+    images[indexCarrouselImage - 1][0].current.style.borderRadius = "10%";
+    images[indexCarrouselImage - 1][1].current.style.opacity = "0.5";
+  }, [indexCarrouselImage]);
+
+  const handleSelectImage = (e) => {
+    const index = e.target.id;
+
+    dispatch(imageSelected(index));
+  };
+
+  const handleNextImage = () => {
+    const newIndex = indexCarrouselImage >= 4 ? 1 : indexCarrouselImage + 1;
+
+    dispatch(imageSelected(newIndex));
+  };
+
+  const handlePrevImage = () => {
+    const newIndex = indexCarrouselImage <= 1 ? 4 : indexCarrouselImage - 1;
+
+    dispatch(imageSelected(newIndex));
   };
 
   const handleClosedCarrousel = () => {
@@ -77,7 +90,7 @@ const Carrousel = () => {
               className={styles.shownImage}
               alt="shoes"
             />
-            <button className={styles.prevButton}>
+            <button onClick={handlePrevImage} className={styles.prevButton}>
               <svg
                 className={styles.iconButton}
                 width="12"
@@ -94,7 +107,7 @@ const Carrousel = () => {
                 />
               </svg>
             </button>
-            <button className={styles.nextButton}>
+            <button onClick={handleNextImage} className={styles.nextButton}>
               <svg
                 className={styles.iconButton}
                 width="13"
