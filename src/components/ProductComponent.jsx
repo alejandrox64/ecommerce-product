@@ -2,7 +2,13 @@ import styles from "../styles/ProductComponent.module.scss";
 import Carrousel from "./Carrousel";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectImage, openCarrousel } from "../state/slices/imageProductSlice";
+import {
+  selectImage,
+  openCarrousel,
+  incrementProducts,
+  decrementProducts,
+} from "../state/slices/imageProductSlice";
+import { addToCart } from "../state/slices/cartSlice";
 import { initializingImage } from "../state/slices/carrouselSlice";
 
 const ProductComponent = () => {
@@ -11,6 +17,10 @@ const ProductComponent = () => {
   const imageSelected = useSelector(
     (state) => state.imageProduct.imageSelected
   );
+  const numberOfProducts = useSelector(
+    (state) => state.imageProduct.numberOfProducts
+  );
+
   const dispatch = useDispatch();
 
   const firstImageContainerRef = useRef(null);
@@ -32,11 +42,11 @@ const ProductComponent = () => {
 
   const handleMainImageClick = (e) => {
     dispatch(openCarrousel());
-    dispatch(initializingImage(e.target.id));
+    dispatch(initializingImage(parseInt(e.target.id, 10)));
   };
   const handleSelectImage = (e) => {
     const index = e.target.id;
-    dispatch(selectImage(index));
+    dispatch(selectImage(parseInt(index, 10)));
     if (imageSelected !== null) {
       for (let image of images) {
         image[0].current.style.border = "";
@@ -49,6 +59,23 @@ const ProductComponent = () => {
       "0.2rem solid hsl(26, 100%, 55%)";
     images[index - 1][0].current.style.borderRadius = "10%";
     images[index - 1][1].current.style.opacity = "0.5";
+  };
+
+  const handleIncrement = () => {
+    const numberProduct = numberOfProducts + 1;
+    dispatch(incrementProducts(numberProduct));
+  };
+
+  const handleDecrement = () => {
+    if (numberOfProducts === 1) {
+      return;
+    }
+    const numberProduct = numberOfProducts - 1;
+    dispatch(decrementProducts(numberProduct));
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(numberOfProducts));
   };
 
   return (
@@ -128,15 +155,21 @@ const ProductComponent = () => {
           <span className={styles.previousPrice}>$250.00</span>
           <div className={styles.buyButtons}>
             <div className={styles.buttonsContainer}>
-              <button className={styles.decrementToProduct}>
+              <button
+                onClick={handleDecrement}
+                className={styles.decrementToProduct}
+              >
                 <img alt="minus" src="../../public/images/icon-minus.svg" />
               </button>
-              <span className={styles.totalProducts}>0</span>
-              <button className={styles.incrementToProduct}>
+              <span className={styles.totalProducts}>{numberOfProducts}</span>
+              <button
+                onClick={handleIncrement}
+                className={styles.incrementToProduct}
+              >
                 <img alt="plus" src="../../public/images/icon-plus.svg" />
               </button>
             </div>
-            <button className={styles.addToCart}>
+            <button onClick={handleAddToCart} className={styles.addToCart}>
               <img alt="cart" src="../../public/cart.svg" />
               Add to cart
             </button>
