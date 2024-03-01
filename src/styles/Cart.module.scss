@@ -6,6 +6,7 @@
   width: 360px;
   height: 245px;
   left: -180px;
+  top: 1.5rem;
   border-radius: 15px;
   margin-top: 30px;
   padding: 20px;
@@ -18,6 +19,14 @@
     border: none;
     height: 1px;
     background-color: colors.$Grayish-blue;
+  }
+
+  .emptyCart {
+    color: colors.$Dark-grayish-blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
   }
   .product {
     margin: 20px 0;

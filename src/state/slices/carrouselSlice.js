@@ -9,7 +9,7 @@ export const carrouselSlice = createSlice({
   initialState,
   reducers: {
     imageSelected: (state, actions) => {
-      state.indexCarrouselImage = actions.payload;
+      state.indexCarrouselImage = parseInt(actions.payload, 10);
     },
     initializingImage: (state, actions) => {
       state.indexCarrouselImage = parseInt(actions.payload, 10);

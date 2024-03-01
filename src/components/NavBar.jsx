@@ -1,8 +1,15 @@
-import React from "react";
 import styles from "../styles/NavBar.module.scss";
 import Cart from "./Cart";
+import { useSelector, useDispatch } from "react-redux";
+import { setCartIsOpen } from "../state/slices/cartSlice";
 
 const NavBar = () => {
+  const numberOfProductsToCart = useSelector(
+    (state) => state.cart.totalOfProducts
+  );
+  const dispatch = useDispatch();
+  const cartIsOpen = useSelector((state) => state.cart.cartIsOpen);
+
   return (
     <>
       <nav className={styles.navBar}>
@@ -17,7 +24,12 @@ const NavBar = () => {
           </div>
         </div>
         <div className={styles.cartUserContainer}>
-          <span className={styles.cart}>
+          <span
+            onClick={() => {
+              dispatch(setCartIsOpen());
+            }}
+            className={styles.cart}
+          >
             <svg
               className={styles.iconCart}
               width="22"
@@ -32,10 +44,19 @@ const NavBar = () => {
               />
             </svg>
 
-            <span></span>
-
-            {/* <Cart /> */}
+            <span
+              className={
+                !cartIsOpen && numberOfProductsToCart !== 0
+                  ? styles.numberOfProducts
+                  : undefined
+              }
+            >
+              {!cartIsOpen &&
+                numberOfProductsToCart !== 0 &&
+                numberOfProductsToCart}
+            </span>
           </span>
+          {cartIsOpen && <Cart />}
           <img
             src="../../public/images/image-avatar.png"
             className={styles.userImage}

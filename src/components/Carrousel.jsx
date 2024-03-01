@@ -1,10 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import styles from "../styles/Carrousel.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  closedCarrousel,
-  selectImage,
-} from "../state/slices/imageProductSlice";
+import { closedCarrousel } from "../state/slices/imageProductSlice";
 import { imageSelected } from "../state/slices/carrouselSlice";
 
 const Carrousel = () => {
@@ -31,14 +28,14 @@ const Carrousel = () => {
   ];
 
   useEffect(() => {
-    if (indexCarrouselImage !== null) {
+    if (indexCarrouselImage !== null && indexCarrouselImage !== undefined) {
       for (let image of images) {
         image[0].current.style.border = "";
         image[0].current.style.borderRadius = "";
         image[1].current.style.opacity = "";
       }
     }
-    // images = array de referencias [[contenedor, imagen], ...]
+    // images = array de refs [[contenedor, imagen], ...]
     images[indexCarrouselImage - 1][0].current.style.border =
       "0.2rem solid hsl(26, 100%, 55%)";
     images[indexCarrouselImage - 1][0].current.style.borderRadius = "10%";

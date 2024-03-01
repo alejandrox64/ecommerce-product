@@ -4,6 +4,7 @@ const initialState = {
   indexImage: 1,
   carrousel: false,
   imageSelected: 1,
+  numberOfProducts: 1,
 };
 
 export const imageProductSlice = createSlice({
@@ -20,10 +21,21 @@ export const imageProductSlice = createSlice({
     closedCarrousel: (state) => {
       state.carrousel = false;
     },
+    incrementProducts: (state, actions) => {
+      state.numberOfProducts = actions.payload;
+    },
+    decrementProducts: (state, actions) => {
+      state.numberOfProducts = actions.payload;
+    },
   },
 });
 
-export const { selectImage, openCarrousel, closedCarrousel } =
-  imageProductSlice.actions;
+export const {
+  selectImage,
+  openCarrousel,
+  closedCarrousel,
+  incrementProducts,
+  decrementProducts,
+} = imageProductSlice.actions;
 
 export default imageProductSlice.reducer;
