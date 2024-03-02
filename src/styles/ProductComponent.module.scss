@@ -132,3 +132,68 @@ main {
     }
   }
 }
+
+@media screen and (max-width: 1170px) {
+  main {
+    flex-direction: column;
+    margin-top: 1rem;
+    .imagesProduct {
+      margin-bottom: 2rem;
+    }
+
+    .productDescriptionContainer {
+      margin-top: 5px;
+      margin-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 880px) {
+  main {
+    .imagesProduct {
+      position: relative;
+      margin-bottom: 0;
+      height: auto;
+      .prevButton {
+        position: absolute;
+        left: 10px;
+        top: 40%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: hidden;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px 0 0;
+        &:hover {
+          cursor: pointer;
+        }
+        &:hover #path {
+          stroke: colors.$Orange;
+        }
+      }
+      .nextButton {
+        position: absolute;
+        right: 10px;
+        top: 40%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: hidden;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0 0 5px;
+        &:hover {
+          cursor: pointer;
+        }
+        &:hover #path {
+          stroke: colors.$Orange;
+        }
+      }
+    }
+  }
+}
