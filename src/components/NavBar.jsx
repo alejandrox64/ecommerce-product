@@ -1,9 +1,20 @@
 import styles from "../styles/NavBar.module.scss";
 import Cart from "./Cart";
+import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCartIsOpen } from "../state/slices/cartSlice";
 
 const NavBar = () => {
+  const [displayedMenu, setDisplayedMenu] = useState(true);
+  const navListRef = useRef(null);
+
+  const handleDisplayedMenu = () => {
+    setDisplayedMenu(!displayedMenu);
+    displayedMenu
+      ? (navListRef.current.style.display = "flex")
+      : (navListRef.current.style.display = "none");
+  };
+
   const numberOfProductsToCart = useSelector(
     (state) => state.cart.totalOfProducts
   );
@@ -14,8 +25,22 @@ const NavBar = () => {
     <>
       <nav className={styles.navBar}>
         <div className={styles.navContainer}>
+          <div className={styles.hamburguerMenu}>
+            <input
+              onClick={handleDisplayedMenu}
+              type="checkbox"
+              id="buttonMenu"
+              className={styles.buttonMenu}
+            />
+            <label className={styles.lblMenu} htmlFor="buttonMenu">
+              <span className={styles.bar}></span>
+              <span className={styles.bar}></span>
+              <span className={styles.bar}></span>
+            </label>
+          </div>
+
           <img src="../../public/images/logo.svg" />
-          <div className={styles.navList}>
+          <div ref={navListRef} className={styles.navList}>
             <span className={styles.listItem}>Collections</span>
             <span className={styles.listItem}>Man</span>
             <span className={styles.listItem}>Woman</span>
@@ -23,6 +48,7 @@ const NavBar = () => {
             <span className={styles.listItem}>Contact</span>
           </div>
         </div>
+
         <div className={styles.cartUserContainer}>
           <span
             onClick={() => {
