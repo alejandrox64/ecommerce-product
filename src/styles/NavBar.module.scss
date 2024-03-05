@@ -148,6 +148,13 @@
 }
 
 @media screen and (max-width: 550px) {
+  .container {
+    width: 100dvw;
+    height: 100dvh;
+    position: fixed;
+    z-index: 997;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
   .navBar {
     border: none;
     margin: 0 1rem;
@@ -155,16 +162,20 @@
       position: relative;
       .hamburguerMenu {
         display: flex;
-        // position: absolute;
-        right: 1px;
-        top: 1px;
+        position: fixed;
+        left: 1rem;
+        top: -1.2rem;
+        z-index: 999;
         .lblMenu {
           right: 1px;
         }
       }
+      img {
+        margin-left: 2rem;
+      }
       .navList {
         padding-top: 5rem;
-
+        z-index: 998;
         width: 60dvw;
       }
     }

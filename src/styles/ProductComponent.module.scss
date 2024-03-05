@@ -197,3 +197,9 @@ main {
     }
   }
 }
+
+@media screen and (max-width: 550px) {
+  main {
+    margin-top: 0;
+  }
+}
