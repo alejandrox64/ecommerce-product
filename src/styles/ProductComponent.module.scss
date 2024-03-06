@@ -132,3 +132,95 @@ main {
     }
   }
 }
+
+@media screen and (max-width: 1170px) {
+  main {
+    flex-direction: column;
+    margin-top: 1rem;
+    .imagesProduct {
+      margin-bottom: 2rem;
+    }
+
+    .productDescriptionContainer {
+      margin-top: 5px;
+      margin-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 880px) {
+  main {
+    .imagesProduct {
+      position: relative;
+      margin-bottom: 0;
+      height: auto;
+      .prevButton {
+        position: absolute;
+        left: 10px;
+        top: 40%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: hidden;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px 0 0;
+        &:hover {
+          cursor: pointer;
+        }
+        &:hover #path {
+          stroke: colors.$Orange;
+        }
+      }
+      .nextButton {
+        position: absolute;
+        right: 10px;
+        top: 40%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: hidden;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0 0 5px;
+        &:hover {
+          cursor: pointer;
+        }
+        &:hover #path {
+          stroke: colors.$Orange;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  main {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  main {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    .imagesProduct {
+      width: 100%;
+      height: auto;
+      .shownImage {
+        border-radius: 0%;
+        width: 100%;
+        height: auto;
+      }
+    }
+    .productDescriptionContainer {
+      width: 100%;
+      padding: 0 1rem;
+    }
+  }
+}
