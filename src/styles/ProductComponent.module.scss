@@ -203,3 +203,24 @@ main {
     margin-top: 0;
   }
 }
+
+@media screen and (max-width: 375px) {
+  main {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    .imagesProduct {
+      width: 100%;
+      height: auto;
+      .shownImage {
+        border-radius: 0%;
+        width: 100%;
+        height: auto;
+      }
+    }
+    .productDescriptionContainer {
+      width: 100%;
+      padding: 0 1rem;
+    }
+  }
+}
