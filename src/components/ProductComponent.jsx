@@ -115,7 +115,7 @@ const ProductComponent = () => {
             onClick={(e) => {
               handleMainImageClick(e);
             }}
-            src={`../../public/images/image-product-${indexImage}.jpg`}
+            src={`c:/Users/Alejandro/Desktop/Proyectos/frontEndMentor/ecommerceProductPageMain/ecommerce/public/images/image-product-${indexImage}.jpg`}
             id={indexImage}
             className={`${styles.shownImage}`}
             alt="shoes"
