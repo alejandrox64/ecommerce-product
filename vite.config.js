@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react-swc";
 
 export default defineConfig({
   plugins: [react()],
+  base: "https://alejandrox64.github.io/ecommerce-product",
   css: {
     modules: true, // Habilita los módulos de CSS
   },
